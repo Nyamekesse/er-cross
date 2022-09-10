@@ -3,7 +3,6 @@ import {
   AppBar,
   Avatar,
   Badge,
-  Button,
   IconButton,
   Tooltip,
   Typography,
