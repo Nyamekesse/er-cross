@@ -1,8 +1,18 @@
 import { Mail, Notifications } from "@mui/icons-material";
-import { AppBar, Avatar, Badge, Box, Button, Typography } from "@mui/material";
+import {
+  AppBar,
+  Avatar,
+  Badge,
+  Box,
+  Button,
+  IconButton,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { StyledToolBar, Icons, UserBox } from "../Styles/componentStyles";
 import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
+import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 
 const Navbar = () => {
   return (
@@ -47,6 +57,11 @@ const Navbar = () => {
             src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jeeiZFn4sJVpD_ihjgxJtwHaEK%26pid%3DApi&f=1"
           />
           <Typography variant="span">John Doe</Typography>
+          <Tooltip title="Sign Out">
+            <IconButton>
+              <LogoutOutlinedIcon sx={{ color: "white" }} />
+            </IconButton>
+          </Tooltip>
         </UserBox>
       </StyledToolBar>
     </AppBar>
