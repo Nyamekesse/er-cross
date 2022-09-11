@@ -38,16 +38,6 @@ const Navbar = () => {
             sx={{ width: 40, height: 40 }}
             src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.jeeiZFn4sJVpD_ihjgxJtwHaEK%26pid%3DApi&f=1"
           />
-          {/* <Button
-            variant="outlined"
-            sx={{
-              color: "white",
-              borderColor: "white",
-              ":hover": { borderColor: "white" },
-            }}
-          >
-            logout
-          </Button> */}
         </Icons>
         <UserBox>
           <Avatar

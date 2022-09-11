@@ -1,21 +1,22 @@
 import "./App.css";
-import { Stack } from "@mui/system";
-import Navbar from "./components/Navbar";
-import RightBar from "./components/RightBar";
-import Feeds from "./components/Feeds";
-import SideBar from "./components/Sidebar";
+import Home from "./pages/Home";
 
-function App() {
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import SignUp from "./pages/SignUp";
+import LogIn from "./pages/LogIn";
+
+const App = () => {
   return (
     <>
-      <Navbar />
-      <Stack direction={"row"} spacing={2} justifyContent={"space-between"}>
-        <SideBar />
-        <Feeds />
-        <RightBar />
-      </Stack>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/log-in" element={<LogIn />} />
+        </Routes>
+      </Router>
     </>
   );
-}
+};
 
 export default App;
