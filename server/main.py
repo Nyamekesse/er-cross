@@ -1,11 +1,9 @@
 from flask_cors import CORS
-from distutils.log import debug
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
-import os
 
-from models import setup_db, Health_Service, Requested_Services, Client
+from flask import Flask
+
+
+from database.models import setup_db, Health_Service, Requested_Services, Client
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__)
@@ -34,5 +32,5 @@ def create_app(test_config=None):
         
 
 
-    if __name__ == '__main__':
-        app.run(debug=True)
+
+    return app

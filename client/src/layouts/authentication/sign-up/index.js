@@ -17,11 +17,20 @@ import CustomButton from "components/CustomButton";
 import CoverLayout from "layouts/authentication/components/CoverLayout";
 import Socials from "layouts/authentication/components/Socials";
 import Separator from "layouts/authentication/components/Separator";
+import MenuItem from "@mui/material/MenuItem";
+import { useState } from "react";
+import { useTheme } from "@mui/material/styles";
+import { TextField } from "@mui/material";
 
 // Images
 const bgImage = docsImg;
 
 function Cover() {
+  const [registerType, setRegisterType] = useState("Client");
+  const handler = (e) => {
+    setRegisterType(e);
+  };
+
   return (
     <CoverLayout
       title="Welcome!"
@@ -45,14 +54,25 @@ function Cover() {
         <CustomBox pt={2} pb={3} px={3}>
           <CustomBox component="form" role="form">
             <CustomBox mb={2}>
-              <CustomInput placeholder="Name" />
+              <CustomInput required placeholder="Name" />
             </CustomBox>
             <CustomBox mb={2}>
-              <CustomInput type="email" placeholder="Email" />
+              <CustomInput type="email" required placeholder="Email" />
             </CustomBox>
             <CustomBox mb={2}>
-              <CustomInput type="password" placeholder="Password" />
+              <CustomInput type="password" required placeholder="Password" />
             </CustomBox>
+            <CustomBox mb={2}>
+              <TextField id="select" value={registerType} required select>
+                <MenuItem value={"Client"} onClick={() => handler("Client")}>
+                  Client
+                </MenuItem>
+                <MenuItem value={"Hospital Service"} onClick={() => handler("Hospital Service")}>
+                  Hospital Service
+                </MenuItem>
+              </TextField>
+            </CustomBox>
+
             <CustomBox display="flex" alignItems="center">
               <Checkbox defaultChecked />
               <CustomTypography

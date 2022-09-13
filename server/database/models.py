@@ -1,16 +1,20 @@
+
 import os
-from sqlalchemy import Column, String, Integer, create_engine
+from datetime import datetime
+from sqlalchemy import Column, String, Integer, DateTime, create_engine
 from flask_sqlalchemy import SQLAlchemy
-import json
+
 from dotenv import load_dotenv
 load_dotenv()
 
+database_name = os.getenv('database_name')
+# seems to change to CAPITALIZE on my machine
+# that is why .lower() function is applied, can be removed if does not work on yours
+database_username = os.getenv('username').lower()
+database_password = os.getenv('password')
+database_connection_port = os.getenv('database_connection_port')
 
-load_dotenv()
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ['SECRETE_KEY']
-database_path = 'postgresql://{}:{}@{}/{}'.format(
-    os.environ['USERNAME'], os.environ['PASSWORD'], 'localhost: 5432', os.environ['DATABASE_NAME'])
+database_path = f'postgresql://{database_username}:{database_password}@{database_connection_port}/{database_name}'
 
 db = SQLAlchemy()
 
@@ -24,6 +28,7 @@ setup_db(app)
 def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_DATABASE_URI"] = database_path
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+    app.config["SECRETE_KEY"] = os.environ['SECRETE_KEY']
     db.app = app
     db.init_app(app)
     db.create_all()
@@ -83,6 +88,7 @@ class Client(db.Model):
     email = Column(String)
     password = Column(String)
     register_type = Column(String)
+    all_requests = db.relationship('Requested_Services', backref='author', lazy=True)
 
     def __init__(self, name: str, email: str, password: str, register_type: str):
         self.name = name
@@ -125,14 +131,15 @@ class Requested_Services(db.Model):
     receiver_id = Column(Integer)
     message = Column(String)
     sender_location = Column(String)
-    date = Column(String)
+    request_date = Column(DateTime, default=datetime.utcnow)
+    client_id = Column(Integer, db.ForeignKey('client.id'))
 
-    def __init__(self, sender_id: str, receiver_id:str, message: str, sender_location: str, date: str):
+    def __init__(self, sender_id: str, receiver_id: str, message: str, sender_location: str, request_date: str):
         self.sender_id = sender_id
         self.receiver_id = receiver_id
         self.message = message
         self.sender_location = sender_location
-        self.date = date
+        self.request_date = request_date
 
     def insert(self):
         db.session.add(self)
@@ -145,5 +152,5 @@ class Requested_Services(db.Model):
             'receiver_id': self.receiver_id,
             'message': self.message,
             'sender_location': self.sender_location,
-            "date": self.date,
+            "request_date": self.request_date,
         }
