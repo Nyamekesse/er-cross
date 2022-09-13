@@ -1,19 +1,23 @@
+from crypt import methods
 from distutils.log import debug
 from flask import Flask
-
+from flask_sqlalchemy import SQLAlchemy
+import os
+load_dotenv()
 app =Flask(__name__)
-app.config['SECRET_KEY'] = '74cbb073606587948c64b381e0b250f6'
-
+app.config['SECRET_KEY'] = os.environ['SECRETE_KEY']
+database_path = 'postgresql://{}:{}@{}/{}'.format(
+    os.environ['USERNAME'], os.environ['PASSWORD'], 'localhost: 5432', os.environ['DATABASE_NAME'])
 
 @app.route("/")
 @app.route('/home')
 def method_name():
     return "hello World!, welcome"
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def sign_up():
     pass
-@app.route('/login')
+@app.route('/login', methods=['GET', 'POST'])
 def log_in():
     pass
     
