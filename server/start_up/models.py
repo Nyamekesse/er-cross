@@ -1,13 +1,12 @@
 from sqlalchemy.dialects.postgresql import UUID
-from start_up import db
+from start_up import db, login_manager
 from datetime import datetime
 from sqlalchemy import Column, String, Integer
-import uuid
+from flask_login import UserMixin
 
-"""
-setup_db(app)
-    binds a flask application and a SQLAlchemy service
-"""
+@login_manager.user_loader
+def load_user(user_id):
+    return Client.query.get(int(user_id))
 
 """
 Health Service
@@ -15,7 +14,7 @@ Health Service
 """
 
 
-class Health_Service(db.Model):
+class Health_Service(db.Model, UserMixin):
     __tablename__ = 'health_service'
 
     id = Column(Integer, primary_key=True)
@@ -55,7 +54,7 @@ Client
 """
 
 
-class Client(db.Model):
+class Client(db.Model, UserMixin):
     __tablename__ = 'client'
 
     id = Column(Integer, primary_key=True)
