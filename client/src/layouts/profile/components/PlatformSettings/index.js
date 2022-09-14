@@ -12,8 +12,6 @@ import CustomTypography from "components/CustomTypography";
 
 function PlatformSettings() {
   const [followsMe, setFollowsMe] = useState(true);
-  const [answersPost, setAnswersPost] = useState(false);
-  const [mentionsMe, setMentionsMe] = useState(true);
   const [newLaunches, setNewLaunches] = useState(false);
   const [productUpdate, setProductUpdate] = useState(true);
   const [newsletter, setNewsletter] = useState(true);
@@ -40,30 +38,12 @@ function PlatformSettings() {
           </CustomBox>
           <CustomBox width="80%" ml={2}>
             <CustomTypography variant="button" fontWeight="regular" color="text">
-              Email me when someone follows me
+              Email me when health service arrives
             </CustomTypography>
           </CustomBox>
         </CustomBox>
-        <CustomBox display="flex" py={1} mb={0.25}>
-          <CustomBox mt={0.25}>
-            <Switch checked={answersPost} onChange={() => setAnswersPost(!answersPost)} />
-          </CustomBox>
-          <CustomBox width="80%" ml={2}>
-            <CustomTypography variant="button" fontWeight="regular" color="text">
-              Email me when someone answers on my post
-            </CustomTypography>
-          </CustomBox>
-        </CustomBox>
-        <CustomBox display="flex" py={1} mb={0.25}>
-          <CustomBox mt={0.25}>
-            <Switch checked={mentionsMe} onChange={() => setMentionsMe(!mentionsMe)} />
-          </CustomBox>
-          <CustomBox width="80%" ml={2}>
-            <CustomTypography variant="button" fontWeight="regular" color="text">
-              Email me when someone mentions me
-            </CustomTypography>
-          </CustomBox>
-        </CustomBox>
+        <CustomBox display="flex" py={1} mb={0.25}></CustomBox>
+        <CustomBox display="flex" py={1} mb={0.25}></CustomBox>
         <CustomBox mt={3}>
           <CustomTypography
             variant="caption"
@@ -80,27 +60,18 @@ function PlatformSettings() {
           </CustomBox>
           <CustomBox width="80%" ml={2}>
             <CustomTypography variant="button" fontWeight="regular" color="text">
-              New launches and projects
+              New income request
             </CustomTypography>
           </CustomBox>
         </CustomBox>
-        <CustomBox display="flex" py={1} mb={0.25}>
-          <CustomBox mt={0.25}>
-            <Switch checked={productUpdate} onChange={() => setProductUpdate(!productUpdate)} />
-          </CustomBox>
-          <CustomBox width="80%" ml={2}>
-            <CustomTypography variant="button" fontWeight="regular" color="text">
-              Monthly product updates
-            </CustomTypography>
-          </CustomBox>
-        </CustomBox>
+
         <CustomBox display="flex" py={1} mb={0.25}>
           <CustomBox mt={0.25}>
             <Switch checked={newsletter} onChange={() => setNewsletter(!newsletter)} />
           </CustomBox>
           <CustomBox width="80%" ml={2}>
             <CustomTypography variant="button" fontWeight="regular" color="text">
-              Subscribe to newsletter
+              Subscribe to health news
             </CustomTypography>
           </CustomBox>
         </CustomBox>

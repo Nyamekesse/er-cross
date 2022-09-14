@@ -31,9 +31,9 @@ function Illustration() {
       description="Enter your email and password to sign in"
       illustration={{
         image: bgImage,
-        title: '"Attention is the new currency"',
+        title: '"Delivering Health Services on the net"',
         description:
-          "The more effortless the writing looks, the more effort the writer actually put into the process.",
+          "No more ques at hospitals, just send hospital request and we will be right away.",
       }}
     >
       <CustomBox component="form" role="form">

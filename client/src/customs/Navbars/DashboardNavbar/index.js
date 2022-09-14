@@ -44,7 +44,6 @@ import {
 
 // Images
 import team2 from "assets/images/team-2.jpg";
-import logoSpotify from "assets/images/small-logos/logo-spotify.svg";
 
 function DashboardNavbar({ absolute, light, isMini }) {
   const [navbarType, setNavbarType] = useState();
@@ -104,7 +103,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
         onClick={handleCloseMenu}
       />
       <NotificationItem
-        image={<img src={logoSpotify} alt="person" />}
+        image={<img src={""} alt="person" />}
         title={["New album", "by Travis Scott"]}
         date="1 day"
         onClick={handleCloseMenu}

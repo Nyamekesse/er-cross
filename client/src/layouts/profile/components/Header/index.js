@@ -5,9 +5,6 @@ import { useState, useEffect } from "react";
 // @mui material components
 import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 
 // MUI components
 import CustomBox from "components/CustomBox";
@@ -21,7 +18,7 @@ import DashboardNavbar from "customs/Navbars/DashboardNavbar";
 import breakpoints from "assets/theme/base/breakpoints";
 
 // Images
-import burceMars from "assets/images/bruce-mars.jpg";
+import kesse from "assets/images/kesse.jpg";
 
 function Header() {
   const [tabsOrientation, setTabsOrientation] = useState("horizontal");
@@ -62,54 +59,19 @@ function Header() {
       >
         <Grid container spacing={3} alignItems="center">
           <Grid item>
-            <CustomAvatar
-              src={burceMars}
-              alt="profile-image"
-              variant="rounded"
-              size="xl"
-              shadow="sm"
-            />
+            <CustomAvatar src={kesse} alt="profile-image" variant="rounded" size="xl" shadow="sm" />
           </Grid>
           <Grid item>
             <CustomBox height="100%" mt={0.5} lineHeight={1}>
               <CustomTypography variant="h5" fontWeight="medium">
-                Alex Thompson
+                Nyamekesse Samuel
               </CustomTypography>
               <CustomTypography variant="button" color="text" fontWeight="medium">
-                CEO / Co-Founder
+                Student
               </CustomTypography>
             </CustomBox>
           </Grid>
-          <Grid item xs={12} md={6} lg={4} sx={{ ml: "auto" }}>
-            <AppBar position="static">
-              <Tabs orientation={tabsOrientation} value={tabValue} onChange={handleSetTabValue}>
-                <Tab
-                  label="App"
-                  icon={
-                    <i className="ni ni-app" style={{ marginTop: "6px", marginRight: "8px" }} />
-                  }
-                />
-                <Tab
-                  label="Message"
-                  icon={
-                    <i
-                      className="ni ni-email-83"
-                      style={{ marginTop: "6px", marginRight: "8px" }}
-                    />
-                  }
-                />
-                <Tab
-                  label="Settings"
-                  icon={
-                    <i
-                      className="ni ni-settings-gear-65"
-                      style={{ marginTop: "6px", marginRight: "8px" }}
-                    />
-                  }
-                />
-              </Tabs>
-            </AppBar>
-          </Grid>
+          <Grid item xs={12} md={6} lg={4} sx={{ ml: "auto" }}></Grid>
         </Grid>
       </Card>
     </CustomBox>
