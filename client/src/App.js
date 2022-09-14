@@ -1,5 +1,4 @@
 //
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -23,8 +22,6 @@ import themeRTL from "assets/theme/theme-rtl";
 import themeDark from "assets/theme-dark";
 import themeDarkRTL from "assets/theme-dark/theme-rtl";
 
-// RTL plugins
-import rtlPlugin from "stylis-plugin-rtl";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 
@@ -42,6 +39,12 @@ import brandDark from "assets/images/logo-ct-dark.png";
 import "assets/css/nucleo-icons.css";
 import "assets/css/nucleo-svg.css";
 
+// redux
+// import { Provider } from "react-redux";
+// import { configureStore, applyMiddleware, compose } from "redux";
+// import thunk from "redux-thunk";
+// import reducers from "./reducers";
+
 export default function App() {
   const [controller, dispatch] = useCustomController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor, darkSidenav, darkMode } =
@@ -49,16 +52,6 @@ export default function App() {
   const [onMouseEnter, setOnMouseEnter] = useState(false);
   const [rtlCache, setRtlCache] = useState(null);
   const { pathname } = useLocation();
-
-  // Cache for the rtl
-  useMemo(() => {
-    const cacheRtl = createCache({
-      key: "rtl",
-      stylisPlugins: [rtlPlugin],
-    });
-
-    setRtlCache(cacheRtl);
-  }, []);
 
   // Open sidenav when mouse enter on mini sidenav
   const handleOnMouseEnter = () => {
@@ -126,7 +119,7 @@ export default function App() {
       </Icon>
     </CustomBox>
   );
-
+  // const store = configureStore(reducers, compose(applyMiddleware));
   return direction === "rtl" ? (
     <CacheProvider value={rtlCache}>
       <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
