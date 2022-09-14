@@ -1,12 +1,13 @@
+
 from flask import (request, abort, jsonify)
 from start_up.models import  Health_Service, Requested_Services, Client
 from start_up import app, bcrypt
-
+from flask_login import login_user, current_user, logout_user, login_required
 
 @app.after_request
 def after_request(response):
     response.headers.add('Access-Control-Allow-Headers',
-                            'Content-Type,Authorization,True')
+                            'Content-Type,Authorization,True')  
     response.headers.add('Access-Control-Allow-Methods',
                             'GET,PUT,POST,DELETE,PATCH')
     return response
@@ -65,10 +66,54 @@ def login():
     json body -- contains the login credentials of the user
     Return: True and status code 200 if successful login
     """
-    
-    pass
+    body = request.get_json()   
+    if body is None:
+        abort(422)
+    else:
+       
+        if body.get('register-type') == 'client':
+            user = Client.query.filter_by(email=body.get('email')).first()
+            if user and bcrypt.check_password_hash(user.password, body.get('password')):
+                login_user(user, remember=body.get('remember'))
+                return jsonify({
+                    "success": True,
+                    "id": user.id,
+                    "username": user.name,
+                    "email": user.email,
+                    "register-type": user.register_type,
+                }), 200
+            else:
+                 return jsonify({
+                    "success": False,
+                }), 404
+        elif body.get('register-type') == 'hospital-service':
+            user = Health_Service.query.filter_by(email=body.get('email')).first()
+            if user and bcrypt.check_password_hash(user.password, body.get('password')):
+                login_user(user, remember=body.get('remember'))
+                return jsonify({
+                    "success": True,
+                    "id": user.id,
+                    "username": user.name,
+                    "email": user.email,
+                    "register-type": user.register_type,
+                }), 200
+            else:
+                return jsonify({
+                    "success": False,
+                }), 404
+        else:
+            abort(422)
+        
+@app.route('/logout')
+def logout():
+    logout_user()
+    return jsonify({
+        "success": True,
+        "message": "log out"
+    })
 
 @app.route('/request-service', methods=['POST'])
+@login_required
 def  request_service():
     """send a request for service attendance
     
@@ -78,7 +123,8 @@ def  request_service():
     """
     
     pass
-@app.route('/get-requested-services<int:id>', methods=['GET'])
+@app.route('/get-requested-services', methods=['GET'])
+@login_required
 def  get_requested_services():
     """retrieves all the services made by a client
     

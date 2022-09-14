@@ -19,10 +19,11 @@ database_path = f'postgresql://{database_username}:{database_password}@{database
 # create and configure the app
 app = Flask(__name__)
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRETE_KEY"] = os.getenv('secrete_key')
+app.secret_key = os.getenv('secrete_key')
 app.config['SQLALCHEMY_DATABASE_URI'] = database_path
 bcrypt = Bcrypt(app)
-login_manager = LoginManager()
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'
 CORS(app, resources={r"*": {'origins': '*'}})
 
 db = SQLAlchemy(app)
