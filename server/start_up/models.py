@@ -1,38 +1,13 @@
-
-import os
+from sqlalchemy.dialects.postgresql import UUID
+from start_up import db
 from datetime import datetime
-from sqlalchemy import Column, String, Integer, DateTime, create_engine
-from flask_sqlalchemy import SQLAlchemy
-
-from dotenv import load_dotenv
-load_dotenv()
-
-database_name = os.getenv('database_name')
-# seems to change to CAPITALIZE on my machine
-# that is why .lower() function is applied, can be removed if does not work on yours
-database_username = os.getenv('username').lower()
-database_password = os.getenv('password')
-database_connection_port = os.getenv('database_connection_port')
-
-database_path = f'postgresql://{database_username}:{database_password}@{database_connection_port}/{database_name}'
-
-db = SQLAlchemy()
-
+from sqlalchemy import Column, String, Integer
+import uuid
 
 """
 setup_db(app)
     binds a flask application and a SQLAlchemy service
 """
-
-
-def setup_db(app, database_path=database_path):
-    app.config["SQLALCHEMY_DATABASE_URI"] = database_path
-    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config["SECRETE_KEY"] = os.environ['SECRETE_KEY']
-    db.app = app
-    db.init_app(app)
-    db.create_all()
-
 
 """
 Health Service
@@ -131,7 +106,7 @@ class Requested_Services(db.Model):
     receiver_id = Column(Integer)
     message = Column(String)
     sender_location = Column(String)
-    request_date = Column(DateTime, default=datetime.utcnow)
+    request_date = Column(db.DateTime, default=datetime.utcnow)
     client_id = Column(Integer, db.ForeignKey('client.id'))
 
     def __init__(self, sender_id: str, receiver_id: str, message: str, sender_location: str, request_date: str):
